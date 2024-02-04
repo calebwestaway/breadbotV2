@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd "$(git rev-parse --show-toplevel)"
 
 read -p "Run setup script? You must have Node v16.11.0 or higher: " -n 1 -r
@@ -15,14 +17,14 @@ then
 	    "token": "insert token here",
 	    "clientId": "inset client id here"
     }
-    " > config.txt
+    " > config.json
     echo "Created config.json"
 
     touch channels.json
     echo "Created channel.json."
 
-    echo "Running channelScanner.json"
-    node functions/channelScanner.json
+    echo "Running channelScanner.js"
+    node functions/channelScanner.js
 
     wait
 
