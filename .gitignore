@@ -1,0 +1,6 @@
+/node_modules/
+/config.json
+/test.js
+/channels.json
+/.DS_Store
+/temp.json
