@@ -1,4 +1,3 @@
-// channelScanner.js
 const { Client, GatewayIntentBits } = require('discord.js');
 const fs = require('fs/promises');
 
@@ -10,11 +9,11 @@ async function scanChannels(client, maxAttempts, attempt = 1) {
             const guilds = client.guilds.cache;
             const channelsData = {};
 
-            guilds.forEach((guild) => {
-                const guildChannels = guild.channels.cache.filter((channel) => channel.type === 0);
+            guilds.forEach(guild => {
+                const guildChannels = guild.channels.cache.filter(channel => channel.type === 0);
 
                 const channelsInGuild = {};
-                guildChannels.forEach((channel) => {
+                guildChannels.forEach(channel => {
                     channelsInGuild[channel.name] = channel.id;
                 });
 
@@ -56,22 +55,4 @@ async function scanChannels(client, maxAttempts, attempt = 1) {
     }
 }
 
-if (require.main === module) {
-    // Read the token from config.json
-    const config = require('../config.json');
-    const token = config.token;
-
-    // Initialize the Discord client
-    const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
-
-    client.once('ready', () => {
-        console.log('Bot is ready!');
-        scanChannels(client, 5).then(() =>
-            console.log('Finished!'),
-            client.destroy(token)
-        );
-    });
-
-} else {
-    module.exports = scanChannels;
-}
+module.exports = { scanChannels };
