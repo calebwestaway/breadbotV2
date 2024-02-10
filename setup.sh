@@ -35,11 +35,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     npm install
     wait
 
-    echo "Running channelScanner.js"
-    node functions/channelScanner.js
-    wait
-
-
     echo "Setup complete!"
     echo "Please fill in config.json with the correct data"
 
