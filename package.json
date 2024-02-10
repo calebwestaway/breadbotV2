@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "discord.js": "^14.14.1",
-    "prettier": "^3.2.5"
+    "discord.js": "^14.14.1"
   }
 }
