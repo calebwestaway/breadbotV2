@@ -55,4 +55,4 @@ async function scanChannels(client, maxAttempts, attempt = 1) {
     }
 }
 
-module.exports = { scanChannels };
+module.exports = scanChannels;
