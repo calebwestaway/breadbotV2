@@ -3,8 +3,9 @@ const { exec } = require('child_process');
 const fs = require('fs');
 
 module.exports = {
-    data: new SlashCommandBuilder().setName('restart').setDescription('Restarts Bread Bot'),
-
+    data: new SlashCommandBuilder()
+        .setName('restart')
+        .setDescription('Restarts Bread Bot'),
     async execute(interaction) {
         if (process.env.PM2_HOME) {
             interaction.reply('Restarting...');
@@ -25,9 +26,7 @@ module.exports = {
                 console.log(`Output: ${stdout}`);
             });
         } else {
-            interaction.reply('Cannot restart because PM2 is not in use!');
+            interaction.reply({content: 'Cannot restart because PM2 is not in use!', ephemeral: true});
         }
-
-        // interaction.reply("this command is very broken, so you can't use it");
     },
 };
