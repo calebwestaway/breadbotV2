@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
+const wait = require('node:timers/promises').setTimeout;
 
 const data = new SlashCommandBuilder()
     .setName('hello')
@@ -10,8 +11,8 @@ module.exports = {
     async execute(interaction) {
         if (interaction.options.getSubcommand() === 'slow') {
             await interaction.deferReply();
-            await wait(8000);
-            await interaction.editReply('**AAAAH!**');
+		    await wait(8000);
+		    await interaction.editReply('**AAAAH!**');
             await wait(1000);
             await interaction.editReply('uhhh I mean');
             await wait(2000);
