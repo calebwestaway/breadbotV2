@@ -77,6 +77,11 @@ client.once('ready', () => {
     });
 });
 
+client.on('messageCreate', message => {
+    console.log('Message: ' + message.content);
+    // message.channel.send("Hello " + message.author);
+})
+
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
