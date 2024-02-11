@@ -81,6 +81,9 @@ client.on('messageCreate', message => {
     if (message.author.bot && message.author !== client.user.username) return;
 
     console.log(message.author.username + ': ' + message.content);
+    if (message.content.includes(client.user.id)) {
+        message.reply('Hello <@' + message.author + '>');
+    }
 })
 
 client.on(Events.InteractionCreate, async interaction => {
