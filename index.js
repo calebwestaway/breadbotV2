@@ -78,8 +78,9 @@ client.once('ready', () => {
 });
 
 client.on('messageCreate', message => {
-    console.log('Message: ' + message.content);
-    // message.channel.send("Hello " + message.author);
+    if (message.author.bot && message.author !== client.user.username) return;
+
+    console.log(message.author.username + ': ' + message.content);
 })
 
 client.on(Events.InteractionCreate, async interaction => {
