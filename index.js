@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits, IntentsBitField } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const readline = require('readline');
 
 const { token } = require('./config.json');
@@ -10,9 +10,15 @@ const { splitString } = require('./functions/splitString.js');
 const scanChannels = require('./functions/channelScanner.js');
 
 const servers = require('./channels.json');
+const logChl = servers["Bread Bot's House"].channels.log;
 
 const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers],
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers
+    ],
 });
 
 module.exports.client = client;
@@ -36,23 +42,12 @@ for (const folder of commandFolders) {
     }
 }
 
-const bootMessage = 'Ready!';
-const bootMessageLocation = servers["Bread Bot's House"].channels.log;
-
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
     scanChannels(client)
         .then(() => {
             console.log('Scanning completed!');
-            console.log('Sending boot message to ' + bootMessageLocation + ': ' + bootMessage);
-            client.channels.cache.get(bootMessageLocation).send(bootMessage);
-            if (process.env.PM2_HOME) {
-                client.channels.cache.get(bootMessageLocation).send('Using PM2');
-            } else {
-                client.channels.cache.get(bootMessageLocation).send('Not using PM2');
-            }
-
             require('./startup.js');
         })
         .catch(error => {
@@ -127,3 +122,5 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.login(token);
+
+module.exports = { client, logChl };
