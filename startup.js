@@ -3,6 +3,8 @@ const os = require('os')
 const { client, logChl } = require('./index.js');
 const bootMessage = 'Ready!';
 
+client.user.setStatus('online');
+
 console.log('Sending boot message to ' + logChl + ': ' + bootMessage);
 client.channels.cache.get(logChl).send(bootMessage);
 

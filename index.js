@@ -5,7 +5,6 @@ const readline = require('readline');
 
 const { token } = require('./config.json');
 
-const { customToString } = require('./functions/customToString.js');
 const { splitString } = require('./functions/splitString.js');
 const scanChannels = require('./functions/channelScanner.js');
 
