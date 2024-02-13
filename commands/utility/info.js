@@ -1,18 +1,20 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
-	.setName('info')
-	.setDescription('Get info about a user or a server')
-	.addSubcommand(subcommand =>
-		subcommand
-			.setName('user')
-			.setDescription('Stalks you and says what it found out')
-        )
+    .setName('info')
+    .setDescription('Get info about a user or a server')
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName('user')
+            .setDescription('Stalks you and says what it found out')
+    )
     .addSubcommand(subcommand =>
         subcommand
             .setName('server')
-            .setDescription('Gets info about the server'),
-        )
+            .setDescription('Gets info about the server')
+    )
+    .setDMPermission(false);
+
 module.exports = {
     data: data,
     async execute(interaction) {

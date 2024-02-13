@@ -1,7 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { exec } = require('child_process');
+const wait = require('node:timers/promises').setTimeout;
+
 const { client } = require('../../index.js')
-const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -29,7 +30,10 @@ module.exports = {
         } else {
             await interaction.reply('I can\'t restart so I\'m going to shutdown instead\nI have messaged Caleb so they can restart me');
             await client.users.send('1164617800443236414', 'I\'m shutting down, please restart me manually');
-            await client.user.setStatus('invisible');
+            client.user.setStatus('invisible')
+            wait(1500);
+            console.log('Shutting down...')
+            client.destroy()
             process.exit()
         }
     },
