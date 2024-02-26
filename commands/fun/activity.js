@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, ActivityType } = require('discord.js');
 
-const { client } = require('../../index.js')
 
 module.exports = {
     cooldown: 5,
@@ -25,6 +24,8 @@ module.exports = {
         ),
 
     async execute(interaction) {
+        const client = interaction.client
+
         if (interaction.options.getString('type') != 'none') {
 
             if (interaction.options.getString('activity')) {

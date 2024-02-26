@@ -2,13 +2,14 @@ const { SlashCommandBuilder } = require('discord.js');
 const { exec } = require('child_process');
 const wait = require('node:timers/promises').setTimeout;
 
-const { client } = require('../../index.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('restart')
         .setDescription('Restarts Bread Bot'),
     async execute(interaction) {
+        const client = interaction.client
+
         if (process.env.PM2_HOME) {
             await interaction.reply('Restarting...');
 
