@@ -66,17 +66,21 @@ module.exports = {
 
         } else if (interaction.options.getSubcommand() === 'someone-else') {
             if (interaction.user.id === '1164617800443236414' || interaction.user.id === '1164950894417297488') {
-                const time = await interaction.options.getInteger('time') * 60000;
-                const member = await interaction.options.getMember('target');
-                const reason = await interaction.options.getString('reason');
+                if (interaction.options.getMember('target').id === interaction.client.user.id) {
+                    interaction.reply('No')
+                } else {
+                    const time = await interaction.options.getInteger('time') * 60000;
+                    const member = await interaction.options.getMember('target');
+                    const reason = await interaction.options.getString('reason');
 
-                await interaction.reply(`Timing out ${member} for ${time / 60000} minutes`);
+                    await interaction.reply(`Timing out ${member} for ${time / 60000} minutes`);
 
-                try {
-                    await member.timeout(time, reason);
-                } catch (error) {
-                    await interaction.followUp('Something broke. <@1164617800443236414> has the details')
-                    console.log(error);
+                    try {
+                        await member.timeout(time, reason);
+                    } catch (error) {
+                        await interaction.followUp('Something broke. <@1164617800443236414> has the details')
+                        console.log(error);
+                    }
                 }
             } else {
                 interaction.reply('Access denied')
