@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits, messageLink } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const readline = require('readline');
 
 const { token } = require('./config.json');
@@ -8,38 +8,10 @@ const { token } = require('./config.json');
 const { splitString } = require('./functions/splitString.js');
 const scanChannels = require('./functions/channelScanner.js');
 const findReplace = require('./functions/findReplace.js');
-// const compileKeys = require('./functions/compileKeys.js');
-
-function compileKeys(jsonArray, keyName) {
-    const compiledList = {};
-    jsonArray.forEach(obj => {
-        const keys = Object.keys(obj);
-        keys.forEach(key => {
-            if (key === keyName) {
-                if (!compiledList[obj[key]]) {
-                    compiledList[obj[key]] = [];
-                }
-                compiledList[obj[key]].push(obj);
-            }
-        });
-    });
-    return compiledList;
-}
 
 const servers = require('./channels.json');
 const { connect } = require('node:http2');
 const logChl = servers["Bread Bot's House"].channels.log;
-
-const stringsToEdit = [
-    {
-        "find": "shit",
-        "replace": "||shit||"
-    },
-    {
-        "find": "fuck",
-        "replace": "||fuck||"
-    }
-]
 
 const client = new Client({
     intents: [
@@ -113,36 +85,10 @@ client.on('messageCreate', msg => {
     if (msg.content.includes(client.user.id)) {
         msg.reply('Hello <@' + msg.author + '>');
 
-    } else if (msg.content.includes("editMe")) {
-
-        let findQuery = stringsToEdit.map(obj => obj['find']);
-        let editedMsg = msg.content;
-
-        for (let item of stringsToEdit) {
-            if (findQuery.every(value => msg.content.toLowerCase().includes(value))) {
-                msg.delete();
-                client.channels.cache.get(msg.channelId).send(`
-                ${msg.author} says:
-                > ${editedMsg}
-                `);
-                editedMsg = undefined;
-            } else if (editedMsg.toLowerCase().includes(item.find.toLowerCase())) {
-                editedMsg = editedMsg.replace(item.find, item.replace);
-            }
-        }
-
-
-
-        // if surrounding this with foundOneMatch that triggers above, modified for loop
-        // actually might not need that at all and not have surrounding if at all
-
-        // (scoping for above to not block out var names bc they are common) if possible
-
-        // editedContent = findReplace(stringsToEdit, msg.content);
-
-
+    } else if (msg.content.toLowerCase().includes("perchance")) {
+        msg.reply("You can't just say perchance");
     }
-})
+});
 
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
