@@ -65,7 +65,9 @@ module.exports = {
             }
 
         } else if (interaction.options.getSubcommand() === 'someone-else') {
-            if (interaction.user.id === '1164617800443236414' || interaction.user.id === '1164950894417297488') {
+            const interactionUser = await interaction.guild.members.fetch(interaction.user.id)
+            console.log()
+            if (interactionUser.roles.cache.has('1213237608327553144')) {
                 if (interaction.options.getMember('target').id === interaction.client.user.id) {
                     interaction.reply('No')
                 } else {
@@ -78,7 +80,7 @@ module.exports = {
                     try {
                         await member.timeout(time, reason);
                     } catch (error) {
-                        await interaction.followUp('Something broke. <@1164617800443236414> has the details')
+                        await interaction.followUp('Something broke. <@1164617800443236414> has the details\nI might not be able to timeout if the target user has `smol admin`')
                         console.log(error);
                     }
                 }
