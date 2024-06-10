@@ -47,7 +47,7 @@ client.once('ready', () => {
             console.log('Scanning completed!');
 
             const logChl = servers['The Bakery'].channels.log;
-            const midnightChl = servers['The Bakery'].channels.testing;
+            const midnightChl = servers.Helpians.channels.general;
 
             module.exports = { client, logChl, midnightChl };
 
