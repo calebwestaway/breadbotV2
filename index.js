@@ -5,13 +5,10 @@ const readline = require('readline');
 
 const { token } = require('./config.json');
 
-const { splitString } = require('./functions/splitString.js');
+const splitString = require('./functions/splitString.js');
 const scanChannels = require('./functions/channelScanner.js');
-const findReplace = require('./functions/findReplace.js');
 
 const servers = require('./channels.json');
-const { connect } = require('node:http2');
-const logChl = servers["Bread Bot's House"].channels.log;
 
 const client = new Client({
     intents: [
@@ -45,15 +42,23 @@ for (const folder of commandFolders) {
 
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-
     scanChannels(client)
         .then(() => {
             console.log('Scanning completed!');
+
+            const logChl = servers['The Bakery'].channels.log;
+            const midnightChl = servers['The Bakery'].channels.testing;
+
+            module.exports = { client, logChl, midnightChl };
+
             require('./startup.js');
+            require('./timedMsg.js');
+
         })
         .catch(error => {
             console.error('Error:', error);
         });
+
 
     const rl = readline.createInterface({
         input: process.stdin,
@@ -135,5 +140,3 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.login(token);
-
-module.exports = { client, logChl };
